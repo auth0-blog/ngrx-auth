@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { UserHomeComponent } from './components/user-home.component';
 import { MatButtonModule, MatCardModule, MatDialogModule, MatInputModule } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AuthEffects } from './effects/auth.effects';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
+    EffectsModule.forFeature([AuthEffects]),
   ],
   declarations: [UserHomeComponent]
 })
