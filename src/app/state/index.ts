@@ -1,5 +1,4 @@
 import {
-  ActionReducer,
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
@@ -19,3 +18,9 @@ export const reducers: ActionReducerMap<State> = {
 export const metaReducers: MetaReducer<State>[] = !environment.production
   ? []
   : [];
+
+export const selectAuthState = createFeatureSelector<fromAuth.State>('auth');
+export const selectIsLoggedIn = createSelector(
+  selectAuthState,
+  fromAuth.selectIsLoggedIn
+);
