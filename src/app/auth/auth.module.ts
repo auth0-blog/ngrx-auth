@@ -9,6 +9,8 @@ import { UserHomeComponent } from './components/user-home.component';
 import { AuthEffects } from './effects/auth.effects';
 import { LoginPageComponent } from './components/login-page.component';
 import { LoginFormComponent } from './components/login-form.component';
+import { CallbackComponent } from './components/callback.component';
+import { LogoutPromptComponent } from './components/logout-prompt.component';
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import { LoginFormComponent } from './components/login-form.component';
     ReactiveFormsModule,
     EffectsModule.forFeature([AuthEffects])
   ],
-  declarations: [UserHomeComponent, LoginPageComponent, LoginFormComponent]
+  declarations: [UserHomeComponent, LoginPageComponent, LoginFormComponent, CallbackComponent, LogoutPromptComponent],
+  entryComponents: [LogoutPromptComponent]
 })
 export class AuthModule {}
