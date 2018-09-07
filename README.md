@@ -11,7 +11,7 @@ To get started, clone the repo, install the dependencies, and check out the "Sta
 git clone https://github.com/auth0-blog/ngrx-auth.git
 cd ngrx-auth
 npm install
-git checkout 679fb81
+git checkout 23c1b25
 ```
 
 ## Development server
