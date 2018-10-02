@@ -3,7 +3,7 @@ This is the sample code for the Auth0 tutorial [Adding Authentication to NgRx](h
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
-Tutorial and blog post originally appeared on Auth0's Blog: [Add Authentication to an NgRx Project](https://auth0.com/blog/add-authentication-to-ngrx-app/)
+Tutorial and blog post originally appeared on Auth0's Blog: [Add Authentication to an NgRx Project](https://auth0.com/blog/ngrx-authentication-tutorial/)
 
 ## Getting Started
 
