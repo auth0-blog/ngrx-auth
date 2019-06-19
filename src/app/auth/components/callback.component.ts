@@ -16,6 +16,8 @@ export class CallbackComponent implements OnInit {
   constructor(private store: Store<fromStore.State>) {}
 
   ngOnInit() {
-    this.store.dispatch(new LoginComplete());
+    if (window.location.hash) {
+      this.store.dispatch(new LoginComplete());
+    }
   }
 }
