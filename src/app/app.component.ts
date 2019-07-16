@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '@app/state';
-import { CheckLogin } from '@app/auth/actions/auth.actions';
+import { checkLogin } from '@app/auth/actions/auth.actions';
 
 @Component({
   selector: 'abl-root',
@@ -27,9 +27,9 @@ import { CheckLogin } from '@app/auth/actions/auth.actions';
   ]
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store<fromStore.State>) { }
+  constructor(private store: Store<fromStore.State>) {}
 
   ngOnInit() {
-    this.store.dispatch(new CheckLogin());
+    this.store.dispatch(checkLogin());
   }
 }

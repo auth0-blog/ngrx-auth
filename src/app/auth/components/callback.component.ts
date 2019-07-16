@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '@app/state';
-import { LoginComplete } from '@app/auth/actions/auth.actions';
+import { loginComplete } from '@app/auth/actions/auth.actions';
 
 @Component({
   selector: 'abl-callback',
@@ -17,7 +17,7 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit() {
     if (window.location.hash) {
-      this.store.dispatch(new LoginComplete());
+      this.store.dispatch(loginComplete());
     }
   }
 }

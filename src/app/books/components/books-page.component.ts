@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import * as BooksPageActions from '../actions/books-page.actions';
 import { Book } from '../models/book';
 import * as fromBooks from '../reducers';
-import { Logout } from '@app/auth/actions/auth.actions';
+import { logout } from '@app/auth/actions/auth.actions';
 
 @Component({
   selector: 'abl-books-page',
@@ -14,7 +14,9 @@ import { Logout } from '@app/auth/actions/auth.actions';
     <mat-card>
       <mat-card-title>My Collection</mat-card-title>
       <mat-card-actions>
-        <button mat-button raised color="accent" (click)="logout()">Logout</button>
+        <button mat-button raised color="accent" (click)="logout()">
+          Logout
+        </button>
       </mat-card-actions>
     </mat-card>
 
@@ -46,6 +48,6 @@ export class BooksPageComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(new Logout());
+    this.store.dispatch(logout());
   }
 }

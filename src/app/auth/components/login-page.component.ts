@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '@app/state';
-import { Login } from '@app/auth/actions/auth.actions';
+import { login } from '@app/auth/actions/auth.actions';
 
 @Component({
   selector: 'abl-login-page',
   template: `
-    <abl-login-form
-      (submitted)="onLogin($event)">
-    </abl-login-form>
+    <abl-login-form (submitted)="onLogin($event)"> </abl-login-form>
   `,
   styles: [
     `
@@ -33,6 +31,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {}
 
   onLogin() {
-    this.store.dispatch(new Login());
+    this.store.dispatch(login());
   }
 }

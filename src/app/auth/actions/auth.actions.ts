@@ -1,56 +1,20 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-export enum AuthActionTypes {
-  Login = '[Login Page] Login',
-  LoginComplete = '[Login Page] Login Complete',
-  LoginSuccess = '[Auth API] Login Success',
-  LoginFailure = '[Auth API] Login Failure',
-  CheckLogin = '[Auth] Check Login',
-  Logout = '[Auth] Confirm Logout',
-  LogoutCancelled = '[Auth] Logout Cancelled',
-  LogoutConfirmed = '[Auth] Logout Confirmed'
-}
+export const login = createAction('[Login Page] Login');
 
-export class Login implements Action {
-  readonly type = AuthActionTypes.Login;
-}
+export const loginComplete = createAction('[Login Page] Login Complete');
 
-export class LoginComplete implements Action {
-  readonly type = AuthActionTypes.LoginComplete;
-}
+export const loginSuccess = createAction('[Auth API] Login Success');
 
-export class LoginSuccess implements Action {
-  readonly type = AuthActionTypes.LoginSuccess;
-}
+export const loginFailure = createAction(
+  '[Auth API] Login Failure',
+  props<{ payload: any }>()
+);
 
-export class LoginFailure implements Action {
-  readonly type = AuthActionTypes.LoginFailure;
+export const checkLogin = createAction('[Auth] Check Login');
 
-  constructor(public payload: any) {}
-}
+export const logout = createAction('[Auth] Confirm Logout');
 
-export class CheckLogin implements Action {
-  readonly type = AuthActionTypes.CheckLogin;
-}
+export const logoutConfirmed = createAction('[Auth] Logout Confirmed');
 
-export class Logout implements Action {
-  readonly type = AuthActionTypes.Logout;
-}
-
-export class LogoutConfirmed implements Action {
-  readonly type = AuthActionTypes.LogoutConfirmed;
-}
-
-export class LogoutCancelled implements Action {
-  readonly type = AuthActionTypes.LogoutCancelled;
-}
-
-export type AuthActions =
-  | Login
-  | LoginComplete
-  | LoginSuccess
-  | LoginFailure
-  | CheckLogin
-  | Logout
-  | LogoutCancelled
-  | LogoutConfirmed;
+export const logoutCancelled = createAction('[Auth] Logout Cancelled');

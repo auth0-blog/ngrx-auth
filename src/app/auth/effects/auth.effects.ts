@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { tap, exhaustMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import * as fromAuth from '../actions/auth.actions';
+import * as AuthActions from '../actions/auth.actions';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { of, EMPTY } from 'rxjs';
@@ -13,27 +13,25 @@ export class AuthEffects {
   login$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromAuth.AuthActionTypes.Login),
-        tap(() => {
-          return this.authService.login();
-        })
+        ofType(AuthActions.login),
+        tap(() => this.authService.login())
       ),
     { dispatch: false }
   );
 
   loginComplete$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAuth.AuthActionTypes.LoginComplete),
+      ofType(AuthActions.loginComplete),
       exhaustMap(() => {
         return this.authService.parseHash$().pipe(
           map((authResult: any) => {
             if (authResult && authResult.accessToken) {
               this.authService.setAuth(authResult);
               window.location.hash = '';
-              return new fromAuth.LoginSuccess();
+              return AuthActions.loginSuccess();
             }
           }),
-          catchError(error => of(new fromAuth.LoginFailure(error)))
+          catchError(error => of(AuthActions.loginFailure(error)))
         );
       })
     )
@@ -42,7 +40,7 @@ export class AuthEffects {
   loginRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromAuth.AuthActionTypes.LoginSuccess),
+        ofType(AuthActions.loginSuccess),
         tap(() => {
           this.router.navigate([this.authService.authSuccessUrl]);
         })
@@ -53,7 +51,7 @@ export class AuthEffects {
   loginErrorRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromAuth.AuthActionTypes.LoginFailure),
+        ofType(AuthActions.loginFailure),
         mergeMap(({ payload }) => payload),
         tap((err: any) => {
           if (err.error_description) {
@@ -69,19 +67,19 @@ export class AuthEffects {
 
   checkLogin$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAuth.AuthActionTypes.CheckLogin),
+      ofType(AuthActions.checkLogin),
       exhaustMap(() => {
         if (this.authService.authenticated) {
           return this.authService.checkSession$({}).pipe(
             map((authResult: any) => {
               if (authResult && authResult.accessToken) {
                 this.authService.setAuth(authResult);
-                return new fromAuth.LoginSuccess();
+                return AuthActions.loginSuccess();
               }
             }),
             catchError(error => {
               this.authService.resetAuthFlag();
-              return of(new fromAuth.LoginFailure({ error }));
+              return of(AuthActions.loginFailure(error));
             })
           );
         } else {
@@ -93,7 +91,7 @@ export class AuthEffects {
 
   logoutConfirmation$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAuth.AuthActionTypes.Logout),
+      ofType(AuthActions.logout),
       exhaustMap(() =>
         this.dialogService
           .open(LogoutPromptComponent)
@@ -101,9 +99,9 @@ export class AuthEffects {
           .pipe(
             map(confirmed => {
               if (confirmed) {
-                return new fromAuth.LogoutConfirmed();
+                return AuthActions.logoutConfirmed();
               } else {
-                return new fromAuth.LogoutCancelled();
+                return AuthActions.logoutCancelled();
               }
             })
           )
@@ -114,9 +112,7 @@ export class AuthEffects {
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType<fromAuth.LogoutConfirmed>(
-          fromAuth.AuthActionTypes.LogoutConfirmed
-        ),
+        ofType(AuthActions.logoutConfirmed),
         tap(() => this.authService.logout())
       ),
     { dispatch: false }
