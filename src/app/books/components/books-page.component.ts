@@ -44,7 +44,7 @@ export class BooksPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new BooksPageActions.Load());
+    this.store.dispatch(BooksPageActions.load());
   }
 
   logout() {

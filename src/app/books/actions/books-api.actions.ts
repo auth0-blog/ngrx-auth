@@ -1,23 +1,12 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Book } from '../models/book';
 
-export enum BooksApiActionTypes {
-  LoadSuccess = '[Books API] Load Success',
-  LoadFail = '[Books API] Load Fail',
-}
+export const loadSuccess = createAction(
+  '[Books API] Load Success',
+  props<{ payload: Book[] }>()
+);
 
-export class LoadSuccess implements Action {
-  readonly type = BooksApiActionTypes.LoadSuccess;
-
-  constructor(public payload: Book[]) {}
-}
-
-export class LoadFail implements Action {
-  readonly type = BooksApiActionTypes.LoadFail;
-
-  constructor(public payload: any) {}
-}
-
-export type BooksApiActionsUnion =
-  | LoadSuccess
-  | LoadFail;
+export const loadFail = createAction(
+  '[Books API] Load Fail',
+  props<{ payload: any }>()
+);

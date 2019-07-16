@@ -1,13 +1,3 @@
-import { Action } from '@ngrx/store';
-import { Book } from '../models/book';
+import { createAction } from '@ngrx/store';
 
-export enum BooksPageActionTypes {
-  Load = '[Books Page] Load Books'
-}
-
-export class Load implements Action {
-  readonly type = BooksPageActionTypes.Load;
-}
-
-export type BooksPageActionsUnion =
-  | Load;
+export const load = createAction('[Books Page] Load Books');

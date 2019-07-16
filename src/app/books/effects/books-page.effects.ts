@@ -4,8 +4,8 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, exhaustMap } from 'rxjs/operators';
 
-import { BooksPageActionTypes } from './../actions/books-page.actions';
-import { LoadSuccess, LoadFail } from './../actions/books-api.actions';
+import * as BooksPageActions from './../actions/books-page.actions';
+import * as BooksApiActions from './../actions/books-api.actions';
 import { GoogleBooksService } from '@app/services/google-books';
 import { Book } from '../models/book';
 
@@ -13,14 +13,15 @@ import { Book } from '../models/book';
 export class BooksPageEffects {
   loadCollection$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(BooksPageActionTypes.Load),
+      ofType(BooksPageActions.load),
       exhaustMap(() =>
         this.googleBooksService
           .searchBooks('oauth')
           .pipe(
             map(
-              (books: Book[]) => new LoadSuccess(books),
-              catchError(error => of(new LoadFail(error)))
+              (books: Book[]) =>
+                BooksApiActions.loadSuccess({ payload: books }),
+              catchError(error => of(BooksApiActions.loadFail(error)))
             )
           )
       )
